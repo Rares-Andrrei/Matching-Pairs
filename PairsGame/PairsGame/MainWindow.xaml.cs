@@ -20,13 +20,14 @@ namespace PairsGame
     /// </summary>
     public partial class MainWindow : Window
     {
-        private void TitleBar_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            e.Handled = true;
-        }
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void NewUser_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
