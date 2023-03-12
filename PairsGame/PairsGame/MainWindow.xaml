@@ -8,46 +8,41 @@
         Title="Matching Pairs"
         WindowState="Maximized"
         Background="#272537"
-        Icon ="Images\logo.ico" d:DesignHeight="1080" d:DesignWidth="1600"
+        Icon ="Images\logo.ico" d:DesignHeight="1080" d:DesignWidth="1920"
         >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="60"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-
-        <TextBlock Text="Matching Pairs  " Foreground="Aquamarine" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize ="48" FontFamily="Playfair Display" FontWeight="Bold" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="7">
+        
+        <TextBlock Text="Matching Pairs  " Foreground="Aquamarine" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize ="48" FontFamily="Playfair Display" FontWeight="Bold" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="0, 0, 0, 20">
         <InlineUIContainer>
             <Image Source="Images\logo.ico" Width="50"> </Image>
         </InlineUIContainer>
         </TextBlock>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="Users" FontSize= "30" Foreground="Wheat" Margin="100, 50, 0, 0"/>
 
-        <ListBox Grid.Row="3" Grid.Column="1"   Margin="100, 20, 0, 0" Background="#1D1A24" BorderThickness="2" BorderBrush="#1D1A24">
-            <ListBoxItem Foreground="White">ListBox Item #1</ListBoxItem>
-            <ListBoxItem Foreground="White">ListBox Item #2</ListBoxItem>
-            <ListBoxItem Foreground="White">ListBox Item #3</ListBoxItem>
-        </ListBox>
+        <Grid Grid.Row="2" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column ="1" HorizontalAlignment ="Center" Grid.ColumnSpan="5">
-            <Button Content="New User" VerticalAlignment="Bottom"  Margin="0, 0, 100, 0" Width="100" Height="30" Background="LightPink" Click="NewUser_Click"/>
-            <Button Content="Delete User"  VerticalAlignment="Bottom" Margin="0, 0, 100, 0" Width="100" Height="30" Background="LightYellow"/>
-            <Button Content="Play"  VerticalAlignment="Bottom"  Margin="0, 0, 100, 0" Width="100" Height="30" Background="Orange"/>
-            <Button Content="Change Icon"  VerticalAlignment="Bottom" Width="100" Height="30" Background="LightBlue"/>
-        </StackPanel>
+            <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="1">
+                <ContentControl x:Name="InsideWindow"/>
+            </Viewbox>
+        </Grid>
         
     </Grid>
 </Window>
