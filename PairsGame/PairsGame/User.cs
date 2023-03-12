@@ -14,12 +14,28 @@ namespace PairsGame
         private string _username;
         private string _password;
         private string _avatarPath;
+        private int _gamesPlayed;
+        private int _gamesWon;
 
         public User(string username, string password, string avatarPath)
         {
+            _gamesWon = 0;
+            _gamesPlayed = 0;
             UserName = username;
             UserPassword = password;
             AvatarPath = avatarPath;
+        }
+
+        public int GamesPlayed
+        {
+            get { return _gamesPlayed; }
+            set { _gamesPlayed = value; }
+        }
+
+        public int GamesWon
+        {
+            get { return _gamesWon; }
+            set { _gamesWon = value; }
         }
 
         public string UserName { 

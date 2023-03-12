@@ -36,6 +36,7 @@ namespace PairsGame
             _mainWindow = mainWindow;
             InitializeComponent();
             Avatar.Source = new BitmapImage(new Uri(user.AvatarPath, UriKind.Relative));
+            UserName.Text = _user.UserName;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -70,7 +71,7 @@ namespace PairsGame
                 }
                 else
                 {
-
+                    _mainWindow.ShowUserMenu(_user);
                 }
             }
         }

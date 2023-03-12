@@ -28,12 +28,16 @@ namespace PairsGame
         private NewUser _newUserWindow;
         private ConfirmIdentity _confirmIdentityWindow;
         private UsersManager _usersManager;
+        private UserMenu _userMenu;
+        private GameWindow _gameWindow;
         public MainWindow()
         {
             ReadUsersData();
             _newUserWindow = null;
+            _gameWindow = null;
             _menuWindow = new Menu(this);
             _confirmIdentityWindow = null;
+            _userMenu = null;
             InitializeComponent();
             InsideWindow.Content = _menuWindow;
         }
@@ -61,6 +65,7 @@ namespace PairsGame
                 _usersManager = new UsersManager();
             }
         }
+
         public void ShowNewUserWindow()
         {
             _newUserWindow = new NewUser(this);
@@ -75,6 +80,18 @@ namespace PairsGame
             _confirmIdentityWindow = new ConfirmIdentity(this, user, usability);
             InsideWindow.Content = _confirmIdentityWindow;
         }
+        public void ShowUserMenu(User user)
+        {
+            _userMenu = new UserMenu(this, user);
+            InsideWindow.Content = _userMenu;
+        }
+
+        public void ShowGameWindow(User user)
+        {
+            _gameWindow = new GameWindow(this, user);
+            InsideWindow.Content = _gameWindow;
+        }
+
         public void RegisterUser(User user)
         {
             _usersManager.RegisterUser(user);

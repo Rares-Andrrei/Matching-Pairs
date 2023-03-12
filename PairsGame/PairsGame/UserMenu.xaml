@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="PairsGame.UserMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PairsGame"
+             Width= "600"
+             Height = "300"
+             Background="#1D1A24"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Saves" FontSize= "20" Foreground="Wheat" Margin="70, 20, 0, 10"/>
+        <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="40, 0, 0, 0">
+            <ListBox Name ="SavesList" Grid.Row="1" Grid.Column="0" Background="DimGray" BorderThickness="2" BorderBrush="#1D1A24" Margin="15, 0, 0, 0" Height="140" Width="100" Foreground="Black" SelectionChanged="SavesList_SelectionChanged">
+                <ListBoxItem>Item1</ListBoxItem>
+                <ListBoxItem>Item1</ListBoxItem>
+                <ListBoxItem>Item1</ListBoxItem>
+            </ListBox>
+        </ScrollViewer>
+        <TextBlock Name ="UserName" Grid.Row="0" Grid.Column="2" Text="NumeTest" FontSize= "14" Foreground="Wheat" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0,38, 10"/>
+        <TextBlock Text="Statistics" Grid.Row="0" Grid.Column="1" FontSize= "20" Foreground="Wheat" VerticalAlignment="Bottom" Margin="114, 0, 0, 10"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="114, 0, 0, 0">
+            <TextBlock Name ="GamesPlayed" Text="Games played: 0" Foreground="Wheat" FontSize="14"/>
+            <TextBlock Name ="GamesWon" Text="Games won: 0" Foreground="Wheat" FontSize="14"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Right"  Margin="0, 0, 26, 0"
+                    Background="Gray" Width="80" Height="80">
+            <Border BorderThickness="4" BorderBrush="Black" Width="80" Height="80">
+                <Image Name="Avatar" Width="75" Height="75"/>
+            </Border>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="46, 8, 0, 0" Grid.ColumnSpan="2">
+            <Button Name="NewGame" Content="New Game" FontWeight="Bold" FontSize="7" Width="60" Height="18" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="LightBlue" Margin="0, 0, 10, 0" Click="NewGame_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Name="LoadGame" Content="Load Game" FontWeight="Bold" FontSize="7" Width="60" Height="18" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="LightBlue" Click="LoadGame_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+
+        <Button Name="LogOut" Content="LogOut" FontWeight="Bold" FontSize="7" Width="60" Height="18" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="2" Background="LightBlue" Margin="25, 0, 0, 25" Click="LogOut_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+    </Grid>
+</UserControl>

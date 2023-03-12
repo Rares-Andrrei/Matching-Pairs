@@ -8,7 +8,7 @@
              Width= "600"
              Height = "300"
              Background="#1D1A24"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -52,10 +52,20 @@
         <TextBlock Text="Enter your Password" FontSize="16" Foreground= "PaleTurquoise" Grid.Column="0" Grid.Row="2" Margin="20, 0, 0, 5" FontFamily="Georgia"/>
         <PasswordBox Name ="passwordField" Width="200" Height="25"  Margin =" 20, 0, 20, 20" Grid.Column="0" Grid.Row="3" Background="PaleTurquoise" VerticalAlignment="Top"/>
         <TextBox Name ="showPassField" Width="200" Height="25"  Margin =" 20, 0, 20, 20" Grid.Column="0" Grid.Row="3" Background="PaleTurquoise" VerticalAlignment="Top" Visibility="Hidden"/>
-        <TextBlock Text="Unhide" FontSize="8" Foreground= "PaleTurquoise" Grid.Column="1" Grid.Row="3" FontFamily="Georgia" VerticalAlignment="Top"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="15" Height="15" Margin= "14, 8, 0, 0">
+            <Image Source="Images/Eye.png"/>
+        </StackPanel>
+        
         <ToggleButton Grid.Column="1" Grid.Row="3" Name="ShowPassword" 
-                      HorizontalAlignment="Left"  VerticalAlignment="Top" Width="8" Height="8" Background="Salmon" Margin="10, 12, 0, 0"
-                      Checked="ShowPassword_Checked" Unchecked="ShowPassword_Unchecked"/>
+                      HorizontalAlignment="Left"  VerticalAlignment="Top" Width="10" Height="10" Background="Gray" Margin="0, 10, 0, 0"
+                      Checked="ShowPassword_Checked" Unchecked="ShowPassword_Unchecked">
+            <ToggleButton.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </ToggleButton.Resources>
+        </ToggleButton>
 
         <Button Grid.Row="3" Grid.Column="0" Content="Register" FontWeight="Bold" FontSize="7" Width="60" Height="18" Background="LightBlue" Margin="90,45,90,0" Grid.RowSpan="2" VerticalAlignment="Top" Click="Register_Click">
             <Button.Resources>

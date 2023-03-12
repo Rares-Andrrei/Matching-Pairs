@@ -8,7 +8,7 @@
              Height = "300"
              Background="#1D1A24"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -22,13 +22,24 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Confirm your identity" Grid.Row="0" Grid.Column="1" FontSize="16" Foreground= "PaleTurquoise" HorizontalAlignment="Center" Margin="0, 50, 0, 10"/>
+        <TextBlock Name = "UserName" Text="Nume" Grid.Row="0" Grid.Column="2" FontSize="16" Foreground= "Wheat" HorizontalAlignment="Center" Margin="0, 35, 0, 0"/>
         <PasswordBox x:Name="passwordField" Width="200" Height="25" Grid.Column="1" Grid.Row="1" Background="PaleTurquoise" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="showPasswordField" Width="200" Height="25" Grid.Column="1" Grid.Row="1" Background="PaleTurquoise" VerticalAlignment="Top" HorizontalContentAlignment="Center" Visibility="Hidden"/>
         
-        <TextBlock Text="Unhide" FontSize="8" Foreground= "PaleTurquoise" Grid.Column="2" Grid.Row="1" FontFamily="Georgia" VerticalAlignment="Top"/>
         <ToggleButton Grid.Column="2" Grid.Row="1" Name="ShowPassword" 
-                      HorizontalAlignment="Left"  VerticalAlignment="Top" Width="8" Height="8" Background="Salmon" Margin="10, 12, 0, 0"
-                      Checked="ShowPassword_Checked" Unchecked="ShowPassword_Unchecked"/>
+                      HorizontalAlignment="Left"  VerticalAlignment="Center" Width= "10" Height= "10" Background="Gray"
+                      Checked="ShowPassword_Checked" Unchecked="ShowPassword_Unchecked">
+            <ToggleButton.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </ToggleButton.Resources>
+        </ToggleButton>
+
+        <StackPanel Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="15, 0, 0, 0" Width="15" Height="15">
+            <Image Source="Images/Eye.png"/>
+        </StackPanel>
+        
 
         <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Background="Gray" Width="80" Height="80" Margin="0, 60, 0, 0" VerticalAlignment="Top">
             <Border BorderThickness="2" BorderBrush="DarkSlateGray" Width="80" Height="80">

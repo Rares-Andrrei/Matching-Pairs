@@ -59,6 +59,9 @@
       <DependentUpon>ConfirmIdentity.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataSerializaion.cs" />
+    <Compile Include="GameWindow.xaml.cs">
+      <DependentUpon>GameWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
@@ -67,8 +70,15 @@
     </Compile>
     <Compile Include="User.cs" />
     <Compile Include="UserException.cs" />
+    <Compile Include="UserMenu.xaml.cs">
+      <DependentUpon>UserMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UsersManager.cs" />
     <Page Include="ConfirmIdentity.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -138,6 +152,9 @@
     <Resource Include="Avatars\man %281%29.png" />
     <Resource Include="Avatars\princess.png" />
     <Resource Include="Avatars\woman %281%29.png" />
+    <Content Include="Images\Eye.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

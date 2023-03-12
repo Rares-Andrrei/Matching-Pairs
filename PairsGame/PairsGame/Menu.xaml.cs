@@ -60,5 +60,10 @@ namespace PairsGame
         {
             _mainWindow.ShowConfirmIdentityWindow(_mainWindow.GetUser(UsersList.SelectedItem.ToString()), ConfirmIdentity.Case.Delete);
         }
+
+        private void Play_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.ShowConfirmIdentityWindow(_mainWindow.GetUser(UsersList.SelectedItem.ToString()), ConfirmIdentity.Case.Play);
+        }
     }
 }
