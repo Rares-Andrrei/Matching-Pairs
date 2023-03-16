@@ -66,7 +66,7 @@ namespace PairsGame
 
         private void NewGame_Click(object sender, RoutedEventArgs e)
         {
-            _mainWindow.ShowGameWindow(_user);
+            _mainWindow.ShowNewGameWindow(_user);
         }
     }
 }

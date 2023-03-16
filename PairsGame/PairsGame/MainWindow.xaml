@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PairsGame"
         mc:Ignorable ="d"
+        KeyboardNavigation.TabNavigation ="None"
         Title="Matching Pairs"
         WindowState="Maximized"
         Background="#272537"

@@ -26,6 +26,63 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid Name ="gameOptions" Grid.Column="1" Grid.Row="0" Grid.RowSpan="9" d:Visibility="Hidden">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="115"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Custom Grid" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0, 0, 0, 8" 
+                       VerticalAlignment="Center" Foreground="Wheat"/>
+            <TextBlock Text="Rows:  " Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0, 0, 0, 10"
+                       Foreground="Wheat"/>
+            <TextBlock Text="Columns:  " Grid.Column="1" Grid.Row="3"
+                       Foreground="Wheat"/>
+
+            <TextBox Name ="rows" Width="30" Height="20" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" Margin="0, 0, 0, 10" PreviewTextInput="rows_PreviewTextInput"
+                     Background="LightBlue" ToolTip="Minimum: 2 Maximum: 9"/>
+            <TextBox Name ="columns" Width="30" Height="20" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" PreviewTextInput="columns_PreviewTextInput"
+                     Background="LightBlue" ToolTip="Minimum: 2 Maximum: 9"/>
+            <Button Name = "StartCustom" Content = "Start Cutom Game" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan= "2" 
+                    Width="75" Height="18" VerticalAlignment="Top" Margin="0, 10, 0, 0" Background="LightBlue" FontWeight="Bold" FontSize="8" HorizontalAlignment="Center" Click="StartCustom_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <TextBlock Text="Standard Grid 5x5" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top"
+                       Foreground="Wheat"/>
+            <Button Name = "StartStandard" Content = "Start Standard Game" Grid.Row="2" Grid.Column="3"
+                    Width="85" Height="30" VerticalAlignment="Top" Margin="0, 21, 0, 0" Background="LightBlue" FontWeight="Bold" FontSize="8" HorizontalAlignment="Center" Grid.RowSpan="3" Click="StartStandard_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+        
+        <Grid Name = "Game" Grid.Column="1" Grid.Row="0" Grid.RowSpan="9" Visibility="Hidden">
+        </Grid>
+
+        <Grid Name = "GameState" Grid.Column="1" Grid.Row="0" Grid.RowSpan="9" Visibility="Hidden">
+            <TextBlock Name="Message" Text="Congratulations!" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Wheat" 
+                       FontWeight="Regular" FontSize="25" Margin="0, 0, 20, 20"/>
+        </Grid>
+
+
         <TextBlock Name="UserName" Text ="Name" 
                    Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Margin="0, 8, 0, 0"
                    Foreground="Wheat"/>
@@ -46,7 +103,7 @@
         <TextBlock Name ="Time" Text="50" Foreground="Red"
                    Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center"/>
 
-        <Button Content = "Save Game" Background="LightBlue" FontWeight="Bold" FontSize="10"
+        <Button Name = "SaveGame" Content = "Save Game" Background="LightBlue" FontWeight="Bold" FontSize="10"
                  Grid.Column="0" Grid.Row="7" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0, 23, 0, 23" >
             <Button.Resources>
                 <Style TargetType="Border">
@@ -65,12 +122,5 @@
         </Button>
 
         <Border Grid.Column="0" Grid.RowSpan="10" BorderThickness="1" BorderBrush="LightBlue"/>
-
-
-
-        <StackPanel Grid.Column="1" Grid.RowSpan="2">
-            
-        </StackPanel>
-        
     </Grid>
 </UserControl>

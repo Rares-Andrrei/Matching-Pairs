@@ -46,7 +46,7 @@ namespace PairsGame
             string[] files = Directory.GetFiles(_pathToAvatars);
             foreach (string file in files)
             {
-                _avatarsPaths.Add("Avatars\\" + System.IO.Path.GetFileName(file));
+                _avatarsPaths.Add(_pathToAvatars + System.IO.Path.GetFileName(file));
             }
         }
 
@@ -87,7 +87,7 @@ namespace PairsGame
             {
                 User newUser = new User(usernameField.Text, passwordField.Password, _avatarsPaths[_avatarIndexSelect]);
                 _mainWindow.RegisterUser(newUser);
-                MessageBox.Show("Te-ai inrgistrat cu succes!", "Info Box");
+                MessageBox.Show("You have been successfully registered!", "Info Box");
                 _mainWindow.ShowMenuWindow();
             }
             catch (UserException exception)

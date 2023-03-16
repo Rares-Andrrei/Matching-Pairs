@@ -59,6 +59,7 @@
       <DependentUpon>ConfirmIdentity.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataSerializaion.cs" />
+    <Compile Include="GameLogic.cs" />
     <Compile Include="GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
@@ -152,6 +153,9 @@
     <Resource Include="Avatars\man %281%29.png" />
     <Resource Include="Avatars\princess.png" />
     <Resource Include="Avatars\woman %281%29.png" />
+    <Resource Include="card.png" />
+    <Resource Include="Images\black-jack.png" />
+    <Resource Include="Images\card.png" />
     <Content Include="Images\Eye.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -160,4 +164,12 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Content Include="GameImages\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Avatars\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

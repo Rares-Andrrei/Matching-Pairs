@@ -86,9 +86,9 @@ namespace PairsGame
             InsideWindow.Content = _userMenu;
         }
 
-        public void ShowGameWindow(User user)
+        public void ShowNewGameWindow(User user)
         {
-            _gameWindow = new GameWindow(this, user);
+            _gameWindow = new GameWindow(this, user, null);
             InsideWindow.Content = _gameWindow;
         }
 

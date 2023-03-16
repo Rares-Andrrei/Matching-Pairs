@@ -42,7 +42,7 @@ namespace PairsGame
             get { return _username;} 
         set {
                 if (value.Length < 4)
-                { throw new UserException("Username-ul trebuie sa contina minim 4 caractere!"); }
+                { throw new UserException("Your username must be at least 4 caracters long!"); }
                 else 
                 { _username = value; }
             }
@@ -54,7 +54,7 @@ namespace PairsGame
             set
             {
                 if (value.Length < 4)
-                { throw new UserException("Parola trebuie sa contina minim 4 caractere!"); }
+                { throw new UserException("Your password must be at least 4 caracters long!"); }
                 else 
                 { _password = value; }
             }
@@ -67,7 +67,7 @@ namespace PairsGame
                 if (File.Exists(value)) 
                 { _avatarPath = value; }
                 else 
-                { throw new UserException("Avatarul nu a fost gasit"); }
+                { throw new UserException("Your avatar was not found!"); }
             }
         }
 
