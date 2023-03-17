@@ -29,11 +29,14 @@ namespace PairsGame
             InitializeComponent();
             _user = user;
             LoadGame.IsEnabled = false;
+            DeleteGame.IsEnabled = false;
             _mainWindow = mainWindow;
             UserName.Text = user.UserName;
             Avatar.Source = new BitmapImage(new Uri(user.AvatarPath, UriKind.Relative));
             GamesPlayed.Text = "Games Played: " + _user.GamesPlayed;
             GamesWon.Text = "Games Won: " + _user.GamesWon;
+            SavesList.ItemsSource = _user.GameSaves;
+            LeaderBoard.ItemsSource = _mainWindow.GetUsersList();
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
@@ -47,16 +50,18 @@ namespace PairsGame
             if (SavesList.SelectedItem != null)
             {
                 LoadGame.IsEnabled = true;
+                DeleteGame.IsEnabled = true;
             }
             else
             {
                 LoadGame.IsEnabled = false;
+                DeleteGame.IsEnabled = false;
             }
         }
 
         private void LoadGame_Click(object sender, RoutedEventArgs e)
         {
-
+            _mainWindow.ShowLoadedGameWindow(_user, SavesList.SelectedItem as GameLogic);
         }
 
         private void SavesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -67,6 +72,13 @@ namespace PairsGame
         private void NewGame_Click(object sender, RoutedEventArgs e)
         {
             _mainWindow.ShowNewGameWindow(_user);
+        }
+
+        private void DeleteGame_Click(object sender, RoutedEventArgs e)
+        {
+            _user.DeleteSave(SavesList.SelectedItem as GameLogic);
+            SavesList.ItemsSource = null;
+            SavesList.ItemsSource = _user.GameSaves;
         }
     }
 }

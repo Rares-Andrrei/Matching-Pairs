@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using System.ComponentModel;
 
 namespace PairsGame
 {
@@ -16,6 +17,7 @@ namespace PairsGame
         private string _avatarPath;
         private int _gamesPlayed;
         private int _gamesWon;
+        private List<GameLogic> _gameSaves;
 
         public User(string username, string password, string avatarPath)
         {
@@ -24,8 +26,12 @@ namespace PairsGame
             UserName = username;
             UserPassword = password;
             AvatarPath = avatarPath;
+            _gameSaves = new List<GameLogic>();
         }
-
+        public List<GameLogic> GameSaves
+        {
+            get { return _gameSaves; }
+        }
         public int GamesPlayed
         {
             get { return _gamesPlayed; }
@@ -70,10 +76,14 @@ namespace PairsGame
                 { throw new UserException("Your avatar was not found!"); }
             }
         }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void SaveGame(GameLogic game, string name)
         {
-            throw new NotImplementedException();
+            game.SaveName = name;
+            _gameSaves.Add(game);
+        }
+        public void DeleteSave(GameLogic save)
+        {
+            _gameSaves.Remove(save);
         }
     }
 }

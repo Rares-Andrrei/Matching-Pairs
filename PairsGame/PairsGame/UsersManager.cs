@@ -56,5 +56,9 @@ namespace PairsGame
         {
             return _users[userKey];
         }
+        public List<User> GetUsers()
+        {
+            return _users.Values.ToList();
+        }
     }
 }

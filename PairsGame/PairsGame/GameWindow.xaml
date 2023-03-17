@@ -81,6 +81,20 @@
             <TextBlock Name="Message" Text="Congratulations!" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Wheat" 
                        FontWeight="Regular" FontSize="25" Margin="0, 0, 20, 20"/>
         </Grid>
+        
+        <Grid Name = "SaveName" Grid.Column="1" Grid.Row="0" Grid.RowSpan="9" Visibility="Hidden">
+            <TextBlock Text="Enter a name for your save" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Wheat" 
+                       FontWeight="Regular" FontSize="18" Margin="0, 0, 20, 80"/>
+            <TextBox Name ="saveNameField" Width="200" Height="25" Margin="0, 0, 20,10" Grid.Column="1" Grid.Row="0" Background="PaleTurquoise"/>
+            <Button Name ="EnterSave" Content = "Enter" Background="LightBlue" FontWeight="Bold" FontSize="7"
+                 Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Width="50" Height="16" Margin="0, 60, 0, 10" Click ="EnterSave_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
 
 
         <TextBlock Name="UserName" Text ="Name" 
@@ -100,11 +114,11 @@
                    Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center" Margin="0, 0, 0, 23"/>
         <TextBlock Text="Time Left" Foreground="Wheat"
                    Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center"/>
-        <TextBlock Name ="Time" Text="50" Foreground="Red"
+        <TextBlock Name ="Time" Text="" Foreground="Red"
                    Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center"/>
 
         <Button Name = "SaveGame" Content = "Save Game" Background="LightBlue" FontWeight="Bold" FontSize="10"
-                 Grid.Column="0" Grid.Row="7" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0, 23, 0, 23" >
+                 Grid.Column="0" Grid.Row="7" VerticalAlignment="Bottom" Width="60" Height="30" Margin="0, 23, 0, 23"  Click="SaveGame_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
+using System.Windows.Threading;
 
 namespace PairsGame
 {
@@ -23,11 +24,18 @@ namespace PairsGame
     /// </summary>
     public partial class GameWindow : UserControl
     {
+        public enum State
+        {
+            newGame,
+            loadedGame
+        }
         private const string FileToGameImages = "GameImages\\";
         private const string HidingCard = "Images\\black-jack.png";
         private const int TransitionTime = 2500;
         private const int LevelsToWin = 3;
 
+        DispatcherTimer timer;
+        State _gameState;
         private ImageSource _maskSource;
         private List<List<ImageSource>> _sourceImages;
         private User _user;
@@ -35,23 +43,60 @@ namespace PairsGame
         private Image _secondPick;
         private MainWindow _mainWindow;
         private GameLogic _gameLogic;
-        public GameWindow(MainWindow mainWindow, User user, GameLogic gameLogic)
+        public GameWindow(MainWindow mainWindow, User user, GameLogic gameLogic, State state)
         {
             InitializeComponent();
-            _gameLogic = gameLogic;
-            if (gameLogic == null)
+            _gameState = state;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+            if (state == State.newGame)
             {
+                _gameLogic = gameLogic;
                 SaveGame.IsEnabled = false;
+                _user = user;
+                _mainWindow = mainWindow;
+                Avatar.Source = new BitmapImage(new Uri(_user.AvatarPath, UriKind.Relative));
+                UserName.Text = _user.UserName;
+                _maskSource = new BitmapImage(new Uri(HidingCard, UriKind.Relative));
+                Level.Text = "1" + "/" + LevelsToWin;
             }
-            _user = user;
-            _mainWindow = mainWindow;
-            Avatar.Source = new BitmapImage(new Uri(_user.AvatarPath, UriKind.Relative));
-            UserName.Text = _user.UserName;
-            _maskSource = new BitmapImage(new Uri(HidingCard, UriKind.Relative));
-            Level.Text = "1" + "/" + LevelsToWin;
+            else
+            {
+                gameOptions.Visibility = Visibility.Hidden;
+                _gameLogic = gameLogic;
+                _user = user;
+                _mainWindow = mainWindow;
+                _gameLogic.ResetPicks();
+                Avatar.Source = new BitmapImage(new Uri(_user.AvatarPath, UriKind.Relative));
+                UserName.Text = _user.UserName;
+                _maskSource = new BitmapImage(new Uri(HidingCard, UriKind.Relative));
+                Level.Text = gameLogic.Level + "/" + LevelsToWin;
+                CreateImagesList();
+                DisplayGameImages();
+                timer.Start();
+                Time.Text = _gameLogic.TimeLeft.ToString();
+                Game.Visibility = Visibility.Visible;
+            }
+        }
+        private async void Timer_Tick(object sender, EventArgs e)
+        {
+            Time.Text = _gameLogic.TimeLeft.ToString();
+            if (!_gameLogic.DecrementTime())
+            {             
+                timer.Stop();
+                Game.Visibility = Visibility.Hidden;
+                GameState.Visibility = Visibility.Visible;
+                Message.Text = "You lost!";
+                await Task.Delay(TransitionTime);
+                GameState.Visibility = Visibility.Hidden;
+                _user.DeleteSave(_gameLogic);
+                _mainWindow.ShowUserMenu(_user);
+            }
         }
         private void Leave_Click(object sender, RoutedEventArgs e)
         {
+            timer.Stop();
             _mainWindow.ShowUserMenu(_user);
         }
 
@@ -111,7 +156,9 @@ namespace PairsGame
                     await Task.Delay(TransitionTime);
                     GameState.Visibility = Visibility.Hidden;
 
+                    Time.Text = _gameLogic.TimeLeft.ToString();
                     Game.Visibility = Visibility.Visible;
+                    timer.Start();
                     SaveGame.IsEnabled = true;
                 }
             }
@@ -132,20 +179,26 @@ namespace PairsGame
             await Task.Delay(TransitionTime);
             GameState.Visibility = Visibility.Hidden;
 
+            Time.Text = _gameLogic.TimeLeft.ToString();
             Game.Visibility = Visibility.Visible;
+            timer.Start();
             SaveGame.IsEnabled = true;
         }
         private async void DisplayNextLevel()
         {
+            SaveGame.IsEnabled = false;
             Game.Visibility = Visibility.Hidden;
             GameState.Visibility = Visibility.Visible;
             Message.Text = "Level " + _gameLogic.Level.ToString();
             await Task.Delay(TransitionTime);
             GameState.Visibility = Visibility.Hidden;
-            Game.Visibility = Visibility.Visible;
-
             _gameLogic.SetGame();
+            Game.Visibility = Visibility.Visible;
+            timer.Start();
+            SaveGame.IsEnabled = true;
+            Time.Text = _gameLogic.TimeLeft.ToString();
             Level.Text = _gameLogic.Level.ToString() + "/" + LevelsToWin;
+            EraseImages();
             CreateImagesList();
             PopulateGrid();
         }
@@ -158,7 +211,14 @@ namespace PairsGame
                 _sourceImages.Add(new List<ImageSource>());
                 for (int j = 0; j < paths[i].Count; j++)
                 {
-                    _sourceImages[i].Add(new BitmapImage(new Uri(paths[i][j], UriKind.Relative)));
+                    if (!String.Equals(paths[i][j], ""))
+                    {
+                        _sourceImages[i].Add(new BitmapImage(new Uri(paths[i][j], UriKind.Relative)));
+                    }
+                    else
+                    {
+                        _sourceImages[i].Add(null);
+                    }
                 }
             }
         }
@@ -175,6 +235,16 @@ namespace PairsGame
                 Game.ColumnDefinitions.Add(column);
             }
         }
+        public void EraseImages()
+        {
+            for (int i = Game.Children.Count - 1; i >= 0; i--)
+            {
+                if (Game.Children[i] is Image)
+                {
+                    Game.Children.RemoveAt(i);
+                }
+            }
+        }
         private void PopulateGrid()
         {
             for (int i = 0; i < _gameLogic.Rows; i++)
@@ -188,11 +258,15 @@ namespace PairsGame
                     Grid.SetRow(image, i);
                     Grid.SetColumn(image, j);
                     Game.Children.Add(image);
+                    if (_sourceImages[i][j] == null)
+                    {
+                        image.Visibility = Visibility.Hidden;
+                    }
                 }
             }
         }
         private void DisplayGameImages()
-        { 
+        {            
             CreateImagesGrid();
             PopulateGrid();
         }
@@ -234,6 +308,7 @@ namespace PairsGame
                         ResetPicks();
                         if (_gameLogic.CheckLevelWinningState())
                         {
+                            timer.Stop();
                             if (_gameLogic.Level > LevelsToWin)
                             {
                                 _user.GamesWon++;
@@ -242,6 +317,7 @@ namespace PairsGame
                                 GameState.Visibility = Visibility.Visible;
                                 await Task.Delay(TransitionTime);
                                 GameState.Visibility = Visibility.Hidden;
+                                _user.DeleteSave(_gameLogic);
                                 _mainWindow.ShowUserMenu(_user);                               
                             }
                             else 
@@ -262,6 +338,35 @@ namespace PairsGame
                 ResetPicks();
                 Image_MouseLeftButtonDown(sender, e);
             }
+        }
+
+        private async void SaveGame_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+            Game.Visibility = Visibility.Hidden;
+            if (_gameState == State.newGame)
+            {
+                SaveName.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Message.Text = "Game Saved!";
+                GameState.Visibility = Visibility.Visible;
+                await Task.Delay(TransitionTime);
+                GameState.Visibility = Visibility.Hidden;
+                _mainWindow.ShowUserMenu(_user);
+            }
+        }
+
+        private async void EnterSave_Click(object sender, RoutedEventArgs e)
+        {
+            _user.SaveGame(_gameLogic, saveNameField.Text);
+            SaveName.Visibility = Visibility.Hidden;
+            Message.Text = "Game Saved!";
+            GameState.Visibility = Visibility.Visible;
+            await Task.Delay(TransitionTime);
+            GameState.Visibility = Visibility.Hidden;
+            _mainWindow.ShowUserMenu(_user);
         }
     }
 }

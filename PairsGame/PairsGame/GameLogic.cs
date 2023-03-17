@@ -10,8 +10,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace PairsGame
 {
+    [Serializable]
     public class GameLogic
     {
+        private const int Time = 10;
+
+        private string _saveName;
         private User _user;
         private List<List<string>> _images;
         private string _pathToImages;
@@ -30,10 +34,21 @@ namespace PairsGame
             _user = user;
             _user.GamesPlayed++;
             _level = 1;
+            _timeLeft = Time;
             SetGame();
+        }
+        public int TimeLeft
+        {
+            get { return _timeLeft; }
+        }
+        public string SaveName
+        {
+            get { return _saveName; }
+            set { _saveName = value; }
         }
         public void SetGame()
         {
+            _timeLeft = Time;
             _firstPick = null;
             _secondPick = null;
             _images = new List<List<string>>();
@@ -122,6 +137,8 @@ namespace PairsGame
             bool matching = String.Equals(_images[_firstPick.Item1][_firstPick.Item2], _images[_secondPick.Item1][_secondPick.Item2]);
             if (matching)
             {
+                _images[_firstPick.Item1][_firstPick.Item2] = "";
+                _images[_secondPick.Item1][_secondPick.Item2] = "";
                 _imagesLeft--;
             }
             return matching;
@@ -157,6 +174,15 @@ namespace PairsGame
                 }
                 return false;
             }
+        }
+        public bool DecrementTime()
+        {
+            if (_timeLeft == 0)
+            {
+                return false;
+            }
+            _timeLeft--;
+            return true;
         }
     }
 }

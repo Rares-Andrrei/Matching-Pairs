@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -44,6 +45,10 @@ namespace PairsGame
         ~MainWindow() 
         { 
             SaveUsersData();
+        }
+        public List<User> GetUsersList()
+        {
+            return _usersManager.GetUsers();
         }
         private void SaveUsersData()
         {
@@ -88,7 +93,12 @@ namespace PairsGame
 
         public void ShowNewGameWindow(User user)
         {
-            _gameWindow = new GameWindow(this, user, null);
+            _gameWindow = new GameWindow(this, user, null, GameWindow.State.newGame);
+            InsideWindow.Content = _gameWindow;
+        }
+        public void ShowLoadedGameWindow(User user, GameLogic game)
+        {
+            _gameWindow = new GameWindow(this, user, game, GameWindow.State.loadedGame);
             InsideWindow.Content = _gameWindow;
         }
 
@@ -107,6 +117,23 @@ namespace PairsGame
         public User GetUser(string userKey)
         {
             return _usersManager.GetUser(userKey);
+        }
+
+        private void FullScreen_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ResizeMode == ResizeMode.NoResize)
+            {
+                this.WindowStyle = WindowStyle.SingleBorderWindow;
+                this.ResizeMode = ResizeMode.CanResize;
+                this.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                this.WindowStyle = WindowStyle.None;
+                this.ResizeMode = ResizeMode.NoResize;
+                this.WindowState = WindowState.Normal;
+                this.WindowState = WindowState.Maximized;
+            }
         }
     }
 }

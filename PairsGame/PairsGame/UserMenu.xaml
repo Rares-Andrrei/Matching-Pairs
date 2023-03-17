@@ -20,19 +20,22 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Saves" FontSize= "20" Foreground="Wheat" Margin="70, 20, 0, 10"/>
         <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="40, 0, 0, 0">
-            <ListBox Name ="SavesList" Grid.Row="1" Grid.Column="0" Background="DimGray" BorderThickness="2" BorderBrush="#1D1A24" Margin="15, 0, 0, 0" Height="140" Width="100" Foreground="Black" SelectionChanged="SavesList_SelectionChanged">
-                <ListBoxItem>Item1</ListBoxItem>
-                <ListBoxItem>Item1</ListBoxItem>
-                <ListBoxItem>Item1</ListBoxItem>
+            <ListBox Name ="SavesList" Grid.Row="1" Grid.Column="0" Background="DimGray" BorderThickness="2" BorderBrush="#1D1A24" Margin="15, 0, 0, 0" 
+                     Height="130" Width="100" Foreground="Black" SelectionChanged="SavesList_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding SaveName}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
         </ScrollViewer>
-        <TextBlock Name ="UserName" Grid.Row="0" Grid.Column="2" Text="NumeTest" FontSize= "14" Foreground="Wheat" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0,38, 10"/>
-        <TextBlock Text="Statistics" Grid.Row="0" Grid.Column="1" FontSize= "20" Foreground="Wheat" VerticalAlignment="Bottom" Margin="114, 0, 0, 10"/>
+        <TextBlock Name ="UserName" Grid.Row="0" Grid.Column="2" Text="NumeTest" FontSize= "14" Foreground="Wheat" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0,40, 10"/>
+        <TextBlock Text="Leader Board" Grid.Row="0" Grid.Column="1" FontSize= "20" Foreground="Wheat" VerticalAlignment="Bottom" Margin="85, 0, 0, 10"/>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Margin="114, 0, 0, 0">
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" Margin="125, 85, 0, 0">
             <TextBlock Name ="GamesPlayed" Text="Games played: 0" Foreground="Wheat" FontSize="14"/>
             <TextBlock Name ="GamesWon" Text="Games won: 0" Foreground="Wheat" FontSize="14"/>
         </StackPanel>
@@ -43,16 +46,23 @@
                 <Image Name="Avatar" Width="75" Height="75"/>
             </Border>
         </StackPanel>
-        
-        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="46, 8, 0, 0" Grid.ColumnSpan="2">
-            <Button Name="NewGame" Content="New Game" FontWeight="Bold" FontSize="7" Width="60" Height="18" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="LightBlue" Margin="0, 0, 10, 0" Click="NewGame_Click">
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top" Margin="15, 8, 0, 0" Grid.ColumnSpan="2">
+            <Button Name="NewGame" Content="New Game" FontWeight="Bold" FontSize="7" Width="50" Height="18" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="LightBlue" Margin="0, 0, 10, 0" Click="NewGame_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Name="LoadGame" Content="Load Game" FontWeight="Bold" FontSize="7" Width="60" Height="18" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="LightBlue" Click="LoadGame_Click">
+            <Button Name="LoadGame" Content="Load Game" Margin="0, 0, 10, 0" FontWeight="Bold" FontSize="7" Width="50" Height="18" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="LightBlue" Click="LoadGame_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Name="DeleteGame" Content="Delete Game" FontWeight="Bold" FontSize="7" Width="50" Height="18" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="LightBlue" Click="DeleteGame_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
@@ -68,6 +78,30 @@
                 </Style>
             </Button.Resources>
         </Button>
+
+        <DataGrid x:Name="LeaderBoard" AutoGenerateColumns="False" Grid.Column="1" Grid.Row ="1" Grid.ColumnSpan="2" Background="DimGray"
+                  Margin="85,0,0,113" HorizontalAlignment="Left" Grid.RowSpan="2" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True"
+                  RowHeaderWidth ="0">
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Background" Value="Gray" />
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="BorderThickness" Value="0" />
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="Gray" />
+                    <Setter Property="BorderThickness" Value="0.5" />
+                    <Setter Property="BorderBrush" Value="Black" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header=" Name " Binding="{Binding UserName}" />
+                <DataGridTextColumn Header="  Wins  " Binding="{Binding GamesWon}" />
+                <DataGridTextColumn Header=" Games " Binding="{Binding GamesPlayed}" />
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </UserControl>

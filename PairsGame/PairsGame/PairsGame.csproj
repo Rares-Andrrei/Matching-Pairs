@@ -159,6 +159,7 @@
     <Content Include="Images\Eye.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\full-size.png" />
     <Content Include="Images\logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
