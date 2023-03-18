@@ -13,7 +13,7 @@ namespace PairsGame
     [Serializable]
     public class GameLogic
     {
-        private const int Time = 10;
+        private const float Time = 1.5f;
 
         private string _saveName;
         private User _user;
@@ -34,7 +34,6 @@ namespace PairsGame
             _user = user;
             _user.GamesPlayed++;
             _level = 1;
-            _timeLeft = Time;
             SetGame();
         }
         public int TimeLeft
@@ -48,7 +47,7 @@ namespace PairsGame
         }
         public void SetGame()
         {
-            _timeLeft = Time;
+            _timeLeft = (int)((float)(_rows * _columns) * Time);
             _firstPick = null;
             _secondPick = null;
             _images = new List<List<string>>();
@@ -110,10 +109,10 @@ namespace PairsGame
             Shuffle<string>(auxiliary);
             int cnt = 0;
             _images = new List<List<string>>();
-            for (int i = 0; i < _columns; i++)
+            for (int i = 0; i < _rows; i++)
             {
                 _images.Add(new List<string>());
-                for (int j = 0; j < _rows; j++)
+                for (int j = 0; j < _columns; j++)
                 {
                     _images[i].Add(auxiliary[cnt++]);
                 }
