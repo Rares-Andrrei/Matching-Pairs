@@ -39,6 +39,7 @@ namespace PairsGame
         public int TimeLeft
         {
             get { return _timeLeft; }
+            set { _timeLeft = value; }
         }
         public string SaveName
         {
@@ -176,11 +177,11 @@ namespace PairsGame
         }
         public bool DecrementTime()
         {
-            if (_timeLeft == 0)
+            if (TimeLeft == 0)
             {
                 return false;
             }
-            _timeLeft--;
+            TimeLeft--;
             return true;
         }
     }

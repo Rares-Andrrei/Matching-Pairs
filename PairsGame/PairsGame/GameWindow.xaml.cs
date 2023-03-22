@@ -107,7 +107,7 @@ namespace PairsGame
             {
                 e.Handled = true;
             }
-            else if(e.Text == "1" || e.Text == "0")
+            else if(e.Text == "1" || e.Text == "0" || e.Text == "8" || e.Text == "9")
             {
                 e.Handled = true;
             }
@@ -124,7 +124,7 @@ namespace PairsGame
             {
                 e.Handled = true;
             }
-            else if (e.Text == "1" || e.Text == "0")
+            else if (e.Text == "1" || e.Text == "0" || e.Text == "8" || e.Text == "9")
             {
                 e.Handled = true;
             }
@@ -142,7 +142,7 @@ namespace PairsGame
             {
                 if (rowsNr > 10 || rowsNr < 2 || colsNr > 10 || colsNr < 2)
                 {
-                    MessageBox.Show("Input must be a number between 2 and 10", "Input error");
+                    MessageBox.Show("Input must be a number between 2 and 7", "Input error");
                 }
                 else
                 {
